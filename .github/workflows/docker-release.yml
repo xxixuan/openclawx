@@ -106,7 +106,9 @@ jobs:
           slim_tags=()
           if [[ "${SOURCE_REF}" == "refs/heads/main" ]]; then
             tags+=("${IMAGE}:main-amd64")
+            tags+=("${IMAGE}:latest-amd64")
             slim_tags+=("${IMAGE}:main-slim-amd64")
+            slim_tags+=("${IMAGE}:latest-slim-amd64")
           fi
           if [[ "${SOURCE_REF}" == refs/tags/v* ]]; then
             version="${SOURCE_REF#refs/tags/v}"
@@ -223,7 +225,9 @@ jobs:
           slim_tags=()
           if [[ "${SOURCE_REF}" == "refs/heads/main" ]]; then
             tags+=("${IMAGE}:main-arm64")
+            tags+=("${IMAGE}:latest-arm64")
             slim_tags+=("${IMAGE}:main-slim-arm64")
+            slim_tags+=("${IMAGE}:latest-slim-arm64")
           fi
           if [[ "${SOURCE_REF}" == refs/tags/v* ]]; then
             version="${SOURCE_REF#refs/tags/v}"
@@ -335,7 +339,9 @@ jobs:
           slim_tags=()
           if [[ "${SOURCE_REF}" == "refs/heads/main" ]]; then
             tags+=("${IMAGE}:main")
+            tags+=("${IMAGE}:latest")
             slim_tags+=("${IMAGE}:main-slim")
+            slim_tags+=("${IMAGE}:slim")
           fi
           if [[ "${SOURCE_REF}" == refs/tags/v* ]]; then
             version="${SOURCE_REF#refs/tags/v}"
