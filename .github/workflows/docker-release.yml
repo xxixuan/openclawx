@@ -105,13 +105,11 @@ jobs:
           tags=()
           slim_tags=()
           if [[ "${SOURCE_REF}" == "refs/heads/main" ]]; then
-            tags+=("${IMAGE}:main-amd64")
-            slim_tags+=("${IMAGE}:main-slim-amd64")
+            tags+=("${IMAGE}:latest-amd64")
           fi
           if [[ "${SOURCE_REF}" == refs/tags/v* ]]; then
             version="${SOURCE_REF#refs/tags/v}"
             tags+=("${IMAGE}:${version}-amd64")
-            slim_tags+=("${IMAGE}:${version}-slim-amd64")
           fi
           if [[ ${#tags[@]} -eq 0 ]]; then
             echo "::error::No amd64 tags resolved for ref ${SOURCE_REF}"
@@ -222,13 +220,11 @@ jobs:
           tags=()
           slim_tags=()
           if [[ "${SOURCE_REF}" == "refs/heads/main" ]]; then
-            tags+=("${IMAGE}:main-arm64")
-            slim_tags+=("${IMAGE}:main-slim-arm64")
+            tags+=("${IMAGE}:latest-arm64")
           fi
           if [[ "${SOURCE_REF}" == refs/tags/v* ]]; then
             version="${SOURCE_REF#refs/tags/v}"
             tags+=("${IMAGE}:${version}-arm64")
-            slim_tags+=("${IMAGE}:${version}-slim-arm64")
           fi
           if [[ ${#tags[@]} -eq 0 ]]; then
             echo "::error::No arm64 tags resolved for ref ${SOURCE_REF}"
@@ -334,18 +330,15 @@ jobs:
           tags=()
           slim_tags=()
           if [[ "${SOURCE_REF}" == "refs/heads/main" ]]; then
-            tags+=("${IMAGE}:main")
-            slim_tags+=("${IMAGE}:main-slim")
+            tags+=("${IMAGE}:latest")
           fi
           if [[ "${SOURCE_REF}" == refs/tags/v* ]]; then
             version="${SOURCE_REF#refs/tags/v}"
             tags+=("${IMAGE}:${version}")
-            slim_tags+=("${IMAGE}:${version}-slim")
             # Manual backfills should only republish the requested version tags.
             if [[ "${IS_MANUAL_BACKFILL}" != "1" && "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9]+)?$ ]]; then
               tags+=("${IMAGE}:latest")
-              slim_tags+=("${IMAGE}:slim")
-            fi
+              fi
           fi
           if [[ ${#tags[@]} -eq 0 ]]; then
             echo "::error::No manifest tags resolved for ref ${SOURCE_REF}"
